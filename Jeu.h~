@@ -1,0 +1,16 @@
+#ifndef __JEU__
+#define __JEU__
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
+#define LARGEUR_TILE 34
+#define HAUTEUR_TILE 34 
+#define NBR_BLOC_X 18
+#define NBR_BLOC_Y 14
+#define WIDTH LARGEUR_TILE*NBR_BLOC_X
+#define HEIGHT HAUTEUR_TILE*NBR_BLOC_Y
+
+enum{HAUT, BAS, GAUCHE, DROITE};
+
+void aff_map(char **str, SDL_Surface *ecran);
+#endif

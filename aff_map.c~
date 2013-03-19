@@ -1,0 +1,25 @@
+#include "Jeu.h"
+void aff_map(char **carte, SDL_Surface *ecran)
+{
+int i = 0, j = 0;
+SDL_Surface *fond = NULL, *marche;
+	fond marche = IMG_Load("img/fond.jpg");
+	marche = IMG_Load("img/marche.png");
+	SDL_Rect posFond;
+	while (i < NBR_BLOC_Y){
+		while (j < NBR_BLOC_X){
+			posFond.y = i*LARGEUR_TILE;
+			posFond.x = j*HAUTEUR_TILE;
+			if (carte[i][j] == '0')	
+				SDL_BlitSurface(fond,NULL,ecran, &posFond);
+	
+		else
+			SDL_BlitSurface(marche,NULL,ecran, &posFond);
+
+		j++;
+}
+j = 0;
+i++;
+}
+
+} 

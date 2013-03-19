@@ -1,0 +1,99 @@
+#include "Jeu.h"
+int	main()
+{
+
+	char *carte[] = {
+"000000000000000001",
+"000001111111110001",
+"000000010100000001",
+"000100011111010011",
+"001110010001000001",
+"000100100101000101",
+"000100110011111111",
+"111111111010001000",
+"100000000000101011",
+"101110001111111010",
+"101010101100100000",
+"101010101010011111",
+"111111111010101000",
+"100000100010101010"
+};
+int i = 0, j = 0, continuer = 1;
+	SDL_Surface *ecran = NULL, *mario[4] = {NULL};
+	ecran = SDL_SetVideoMode(WIDTH, HEIGHT,32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+	
+	SDL_Event event;
+	if (ecran ==  NULL)
+	{
+		printf("Error initialisation \n");
+		exit(EXIT_FAILURE);
+	}
+
+	SDL_WM_SetCaption("Labyrinthe",NULL);
+	
+	aff_map(carte, ecran);
+	//SDL_BlitSurface(fond,NULL,ecran, &positionFond);
+	SDL_Flip(ecran);
+	mario[HAUT] = IMG_Load("img/mhaut.gif");
+	mario[BAS] = IMG_Load("img/mbas.gif");
+	mario[GAUCHE] = IMG_Load("img/mgauche.gif");
+	mario[DROITE] = IMG_Load("img/mdroite.gif");
+	SDL_Rect posMario;
+	posMario.x= 0;
+	posMario.y= 0; 
+while (continuer)
+    {
+        SDL_WaitEvent(&event);
+        switch(event.type)
+        {
+            case SDL_QUIT:
+                continuer = 0;
+                break;
+            case SDL_KEYDOWN:
+                switch(event.key.keysym.sym)
+                {
+                    case SDLK_UP: // Flèche haut
+                        posMario.y -= 34;
+                        break;
+                    case SDLK_DOWN: // Flèche bas
+                        posMario.y += 34;
+                        break;
+                    case SDLK_RIGHT: // Flèche droite
+                        posMario.x += 34;
+                        break;
+                    case SDLK_LEFT: // Flèche gauche
+                        posMario.x -= 34;
+                        break;
+                }
+                break;
+        }
+	
+	
+	SDL_BlitSurface(mario[HAUT],NULL,ecran, &posMario);
+SDL_Flip(ecran);
+}
+	//pause();
+	exit(EXIT_SUCCESS);
+	SDL_Quit();
+	return 0;
+}
+
+void pause()
+{
+	int continuer = 1;
+	SDL_Event event;
+
+	while (continuer)
+	{
+		SDL_WaitEvent(&event);
+		switch(event.type)
+		{
+			case SDL_QUIT:
+				continuer = 0;
+				break;
+			case SDL_KEYDOWN:
+				continuer = 0;
+				break;
+		}
+	}
+}
